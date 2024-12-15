@@ -1,3 +1,6 @@
 streamlit
 transformers
 sentence-transformers
+openai
+torch
+pandas

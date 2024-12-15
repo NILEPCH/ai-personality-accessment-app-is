@@ -73,7 +73,7 @@ def hr_form_page():
             else:
                 st.error("Incorrect credentials or missing API Key!")
 
-#@st.cache_resource
+@st.cache_resource
 def load_models():
     # Pace model and tokenizer
     pace_model_name = "nileycena/disc_pace_roberta"
