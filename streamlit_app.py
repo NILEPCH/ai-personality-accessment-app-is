@@ -6,6 +6,8 @@ import torch.nn.functional as F
 from transformers import AutoModelForSequenceClassification, AutoTokenizer
 from sentence_transformers import SentenceTransformer, util
 import pandas as pd
+from google.cloud import bigquery
+from google.oauth2.service_account import Credentials
 
 # Initialize session state for navigation
 if "page" not in st.session_state:
@@ -147,7 +149,7 @@ def AI_retrieval_personality_assessment_page():
 
     def chatbot():
         st.title("DISC Chatbot System")
-        st.write("Answer 7 DISC-Personality Assessment Questions. Each answer must be at least 100 words.")
+        st.write("Answer 7 DISC-Personality Assessment Questions. Each answer must be at least 20 words.")
 
         if 'current_question' not in st.session_state:
             st.session_state.current_question = 0
@@ -163,14 +165,14 @@ def AI_retrieval_personality_assessment_page():
 
             # Show current word count
             word_count = len(response.strip().split())
-            st.write(f"Current word count: {word_count}/100 words")
+            st.write(f"Current word count: {word_count}/20 words")
 
             if st.button("Submit", key=f"btn{st.session_state.current_question}"):
                 if not response.strip():
                     st.warning("Please provide an answer before submitting.")
                 else:
-                    if word_count < 100:
-                        st.warning(f"Your answer is too short. Please provide at least 100 words. Currently, you have {word_count} words.")
+                    if word_count < 20:
+                        st.warning(f"Your answer is too short. Please provide at least 20 words. Currently, you have {word_count} words.")
                     elif not is_relevant(response, question):
                         st.warning("Your answer is not relvant to the question. please answer again")
                     else:
